@@ -1,0 +1,1432 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Istiqomah - Portfolio</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: "Poppins", sans-serif;
+            background: linear-gradient(135deg, #0d0d0d 0%, #1a0b2e 100%);
+            color: #eee;
+            transition: background 0.5s ease, color 0.5s ease;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .bg-animation span {
+            position: absolute;
+            display: block;
+            width: 20px;
+            height: 20px;
+            background: rgba(127, 90, 240, 0.1);
+            animation: float 25s infinite;
+            border-radius: 50%;
+        }
+
+        .bg-animation span:nth-child(1) { left: 10%; animation-delay: 0s; }
+        .bg-animation span:nth-child(2) { left: 20%; animation-delay: 2s; }
+        .bg-animation span:nth-child(3) { left: 50%; animation-delay: 4s; }
+        .bg-animation span:nth-child(4) { left: 80%; animation-delay: 6s; }
+        .bg-animation span:nth-child(5) { left: 70%; animation-delay: 8s; }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) scale(0);
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) scale(1.5);
+                opacity: 0;
+            }
+        }
+
+        /* Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background: rgba(20, 20, 20, 0.8);
+            backdrop-filter: blur(15px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(127, 90, 240, 0.3);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        header h2 {
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 1.5rem;
+            background: linear-gradient(90deg, #7f5af0, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        nav {
+            display: flex;
+            gap: 30px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #eee;
+            position: relative;
+            transition: 0.3s ease;
+            font-weight: 500;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background: #7f5af0;
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        nav a:hover {
+            color: #7f5af0;
+        }
+
+        /* Toggle Mode */
+        .toggle-btn {
+            background: linear-gradient(135deg, #7f5af0, #a78bfa);
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            color: white;
+            cursor: pointer;
+            transition: 0.3s;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(127, 90, 240, 0.3);
+        }
+        
+        .toggle-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(127, 90, 240, 0.5);
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 150px 20px 100px;
+            position: relative;
+        }
+
+        .hero-content {
+            animation: fadeInUp 1s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .hero h1 span {
+            background: linear-gradient(90deg, #7f5af0, #a78bfa, #c084fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradient 3s ease infinite;
+        }
+
+        .hero h3 {
+            font-size: 1.3rem;
+            color: #bbb;
+            margin-bottom: 30px;
+            min-height: 40px;
+        }
+
+        .typing {
+            display: inline-block;
+            border-right: 2px solid #7f5af0;
+            animation: caret 0.7s infinite;
+        }
+
+        @keyframes caret {
+            50% { border-color: transparent; }
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        /* Sections */
+        .section {
+            padding: 80px 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            text-align: center;
+            background: linear-gradient(90deg, #7f5af0, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Glassmorphism card */
+        .glass {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glass::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(127, 90, 240, 0.1), transparent);
+            transform: rotate(45deg);
+            transition: 0.6s;
+        }
+
+        .glass:hover::before {
+            left: 100%;
+        }
+
+        .glass:hover {
+            transform: translateY(-8px);
+            border-color: #7f5af0;
+            box-shadow: 0 10px 40px rgba(127, 90, 240, 0.3);
+        }
+
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .profile-img {
+            width: 100%;
+            max-width: 300px;
+            height: 300px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, #7f5af0, #a78bfa);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 6rem;
+            color: white;
+            margin: 0 auto;
+            box-shadow: 0 10px 40px rgba(127, 90, 240, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .profile-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 20px;
+        }
+
+        .profile-img-placeholder {
+            font-size: 6rem;
+        }
+
+        .upload-btn {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: rgba(127, 90, 240, 0.9);
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            transition: 0.3s ease;
+            z-index: 10;
+        }
+
+        .upload-btn:hover {
+            background: #7f5af0;
+            transform: scale(1.1);
+        }
+
+        .image-input {
+            display: none;
+        }
+
+        .edit-profile-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: rgba(20, 20, 20, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 500px;
+            width: 90%;
+            border: 1px solid rgba(127, 90, 240, 0.3);
+        }
+
+        .modal-content h3 {
+            color: #7f5af0;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .modal-content input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            border: 1px solid rgba(127, 90, 240, 0.3);
+            background: rgba(255, 255, 255, 0.05);
+            color: #eee;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        body.light .modal-content {
+            background: rgba(255, 255, 255, 0.95);
+            color: #333;
+        }
+
+        body.light .modal-content input {
+            background: rgba(0, 0, 0, 0.05);
+            color: #333;
+        }
+
+        .about-text h3 {
+            color: #7f5af0;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        .about-text p {
+            line-height: 1.8;
+            color: #ccc;
+            margin-bottom: 15px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .stat-item h4 {
+            font-size: 2rem;
+            color: #7f5af0;
+            margin-bottom: 10px;
+        }
+
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            gap: 25px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        }
+
+        .skill-card {
+            padding: 30px;
+            text-align: center;
+        }
+
+        .skill-card h3 {
+            color: #7f5af0;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .skill-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 15px;
+        }
+
+        .progress {
+            height: 100%;
+            background: linear-gradient(90deg, #7f5af0, #a78bfa);
+            border-radius: 10px;
+            transition: width 2s ease;
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+
+        .project-card {
+            padding: 0;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .project-img {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #7f5af0, #a78bfa);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: white;
+            transition: 0.4s ease;
+        }
+
+        .project-card:hover .project-img {
+            transform: scale(1.1);
+        }
+
+        .project-info {
+            padding: 25px;
+        }
+
+        .project-info h3 {
+            color: #7f5af0;
+            margin-bottom: 10px;
+        }
+
+        .project-info p {
+            color: #bbb;
+            line-height: 1.6;
+        }
+
+        .project-tags {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background: rgba(127, 90, 240, 0.2);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: #a78bfa;
+        }
+
+        /* Experience & Education */
+        .timeline {
+            position: relative;
+            padding-left: 40px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 2px;
+            background: linear-gradient(180deg, #7f5af0, #a78bfa);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 40px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -46px;
+            top: 0;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #7f5af0;
+            box-shadow: 0 0 20px rgba(127, 90, 240, 0.6);
+        }
+
+        .timeline-item h3 {
+            color: #7f5af0;
+            margin-bottom: 5px;
+        }
+
+        .timeline-item .date {
+            color: #888;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        /* Contact Section */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .contact-item {
+            text-align: center;
+            padding: 30px;
+            transition: 0.3s ease;
+        }
+
+        .contact-item:hover {
+            transform: scale(1.05);
+        }
+
+        .contact-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: #7f5af0;
+        }
+
+        .contact-item h3 {
+            color: #7f5af0;
+            margin-bottom: 10px;
+        }
+
+        .contact-item a {
+            color: #bbb;
+            text-decoration: none;
+            transition: 0.3s ease;
+        }
+
+        .contact-item a:hover {
+            color: #7f5af0;
+        }
+
+        /* Buttons */
+        .btn {
+            background: linear-gradient(135deg, #7f5af0, #a78bfa);
+            padding: 14px 28px;
+            border-radius: 30px;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(127, 90, 240, 0.3);
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(127, 90, 240, 0.5);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid #7f5af0;
+            color: #7f5af0;
+        }
+
+        .btn-outline:hover {
+            background: #7f5af0;
+            color: white;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: 80px;
+            background: rgba(20,20,20,0.8);
+            backdrop-filter: blur(15px);
+            border-top: 1px solid rgba(127, 90, 240, 0.3);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .social-links a {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #7f5af0;
+            font-size: 1.5rem;
+            transition: 0.3s ease;
+            text-decoration: none;
+        }
+
+        .social-links a:hover {
+            background: #7f5af0;
+            color: white;
+            transform: translateY(-5px);
+        }
+
+        /* Light Mode */
+        body.light {
+            background: linear-gradient(135deg, #f5f5f5 0%, #e0e0ff 100%);
+            color: #333;
+        }
+
+        body.light .glass {
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(127, 90, 240, 0.2);
+        }
+
+        body.light nav a,
+        body.light header h2,
+        body.light .hero h3 {
+            color: #333;
+        }
+
+        body.light .about-text p,
+        body.light .project-info p {
+            color: #555;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            nav {
+                display: none;
+            }
+
+            header {
+                padding: 15px 20px;
+            }
+
+            .section {
+                padding: 60px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Background Animation -->
+    <div class="bg-animation">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
+    <!-- NAVBAR -->
+    <header>
+        <h2>Istiqomah</h2>
+        <nav>
+            <a href="#about">About</a>
+            <a href="#skills">Skills</a>
+            <a href="#experience">Experience</a>
+            <a href="#projects">Projects</a>
+            <a href="#contact">Contact</a>
+        </nav>
+        <button class="toggle-btn" onclick="toggleMode()">🌓 Mode</button>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Halo, Saya <span>Istiqomah</span></h1>
+            <h3 class="typing" id="typingText"></h3>
+            <div class="hero-buttons">
+                <button class="btn" onclick="downloadCV()">📥 Download CV</button>
+                <a href="#contact" class="btn btn-outline">💬 Hubungi Saya</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="section" id="about">
+        <h2>Tentang Saya</h2>
+        <div class="glass">
+            <div class="about-content">
+                <div class="profile-img" id="profileImg">
+                    <span class="profile-img-placeholder">👩‍💻</span>
+                    <button class="upload-btn" onclick="openImageModal()" title="Ganti foto profil">📷</button>
+                </div>
+                <div class="about-text">
+                    <h3>Mahasiswa Sistem Informasi</h3>
+                    <p>Saya Istiqomah, mahasiswa aktif di Universitas Komputama (UMIKMA) jurusan Sistem Informasi. Saya memiliki passion yang kuat dalam dunia pemrograman dan teknologi web.</p>
+                    <p>Dengan pengalaman dalam mengembangkan berbagai project web, saya terus belajar dan berkembang untuk mengasah kemampuan coding saya, khususnya dalam HTML, CSS, JavaScript, dan framework modern lainnya.</p>
+                    <p>Saya percaya bahwa teknologi dapat membuat perubahan positif, dan saya bersemangat untuk berkontribusi dalam menciptakan solusi digital yang inovatif dan user-friendly.</p>
+                    
+                    <div class="stats">
+                        <div class="stat-item glass">
+                            <h4>10+</h4>
+                            <p>Projects</p>
+                        </div>
+                        <div class="stat-item glass">
+                            <h4>3+</h4>
+                            <p>Years Learning</p>
+                        </div>
+                        <div class="stat-item glass">
+                            <h4>100%</h4>
+                            <p>Passionate</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section class="section" id="skills">
+        <h2>Keahlian Saya</h2>
+        <div class="skills-grid">
+            <div class="glass skill-card">
+                <div class="skill-icon">🌐</div>
+                <h3>HTML & CSS</h3>
+                <p>Menguasai struktur web dan styling dengan HTML5 & CSS3, termasuk Flexbox, Grid, dan animasi.</p>
+                <div class="progress-bar">
+                    <div class="progress" style="width: 85%"></div>
+                </div>
+            </div>
+            <div class="glass skill-card">
+                <div class="skill-icon">⚡</div>
+                <h3>JavaScript</h3>
+                <p>Mampu membuat web interaktif dengan JavaScript, DOM manipulation, dan ES6+ features.</p>
+                <div class="progress-bar">
+                    <div class="progress" style="width: 75%"></div>
+                </div>
+            </div>
+            <div class="glass skill-card">
+                <div class="skill-icon">🎨</div>
+                <h3>UI/UX Design</h3>
+                <p>Memahami prinsip desain user interface dan user experience untuk menciptakan website yang menarik.</p>
+                <div class="progress-bar">
+                    <div class="progress" style="width: 70%"></div>
+                </div>
+            </div>
+            <div class="glass skill-card">
+                <div class="skill-icon">📱</div>
+                <h3>Responsive Design</h3>
+                <p>Membuat website yang responsive dan mobile-friendly untuk berbagai ukuran layar.</p>
+                <div class="progress-bar">
+                    <div class="progress" style="width: 80%"></div>
+                </div>
+            </div>
+            <div class="glass skill-card">
+                <div class="skill-icon">🔧</div>
+                <h3>Git & GitHub</h3>
+                <p>Version control dan kolaborasi project menggunakan Git dan GitHub.</p>
+                <div class="progress-bar">
+                    <div class="progress" style="width: 65%"></div>
+                </div>
+            </div>
+            <div class="glass skill-card">
+                <div class="skill-icon">💡</div>
+                <h3>Problem Solving</h3>
+                <p>Kemampuan analitis dan pemecahan masalah dalam pengembangan aplikasi.</p>
+                <div class="progress-bar">
+                    <div class="progress" style="width: 78%"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- EXPERIENCE & EDUCATION -->
+    <section class="section" id="experience">
+        <h2>Pengalaman & Pendidikan</h2>
+        <div class="glass">
+            <h3 style="color: #7f5af0; margin-bottom: 30px;">📚 Pendidikan</h3>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <h3>Universitas Komputama (UMIKMA)</h3>
+                    <div class="date">2022 - Sekarang</div>
+                    <p>Sistem Informasi - IPK: 3.7/4.0</p>
+                    <p>Fokus belajar: Pemrograman Web, Database, Sistem Informasi Manajemen</p>
+                </div>
+                <div class="timeline-item">
+                    <h3>SMA Negeri 1</h3>
+                    <div class="date">2019 - 2022</div>
+                    <p>Jurusan IPA</p>
+                </div>
+            </div>
+
+            <h3 style="color: #7f5af0; margin: 40px 0 30px;">💼 Pengalaman</h3>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <h3>Web Developer Freelance</h3>
+                    <div class="date">2023 - Sekarang</div>
+                    <p>Mengerjakan berbagai project website untuk klien, termasuk company profile dan landing pages.</p>
+                </div>
+                <div class="timeline-item">
+                    <h3>Praktikum Asisten Lab Komputer</h3>
+                    <div class="date">2023</div>
+                    <p>Membantu mahasiswa dalam praktikum pemrograman dasar dan web development.</p>
+                </div>
+                <div class="timeline-item">
+                    <h3>Peserta Bootcamp Web Development</h3>
+                    <div class="date">2022</div>
+                    <p>Mengikuti intensive bootcamp untuk memperdalam skill HTML, CSS, JavaScript.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section class="section" id="projects">
+        <h2>Project Saya</h2>
+        <div class="projects-grid">
+            <div class="glass project-card">
+                <div class="project-img">🌐</div>
+                <div class="project-info">
+                    <h3>Portfolio Website</h3>
+                    <p>Website portfolio personal dengan design modern dan interaktif menggunakan HTML, CSS, dan JavaScript.</p>
+                    <div class="project-tags">
+                        <span class="tag">HTML</span>
+                        <span class="tag">CSS</span>
+                        <span class="tag">JavaScript</span>
+                    </div>
+                </div>
+            </div>
+            <div class="glass project-card">
+                <div class="project-img">📊</div>
+                <div class="project-info">
+                    <h3>Sistem Informasi Perpustakaan</h3>
+                    <p>Aplikasi web untuk manajemen perpustakaan dengan fitur peminjaman buku, katalog, dan laporan.</p>
+                    <div class="project-tags">
+                        <span class="tag">PHP</span>
+                        <span class="tag">MySQL</span>
+                        <span class="tag">Bootstrap</span>
+                    </div>
+                </div>
+            </div>
+            <div class="glass project-card">
+                <div class="project-img">🎮</div>
+                <div class="project-info">
+                    <h3>Mini Game JavaScript</h3>
+                    <p>Game sederhana berbasis web dengan JavaScript untuk melatih logika dan interaktivitas.</p>
+                    <div class="project-tags">
+                        <span class="tag">JavaScript</span>
+                        <span class="tag">Canvas</span>
+                        <span class="tag">Game Dev</span>
+                    </div>
+                </div>
+            </div>
+            <div class="glass project-card">
+                <div class="project-img">🛒</div>
+                <div class="project-info">
+                    <h3>E-Commerce Landing Page</h3>
+                    <p>Landing page untuk toko online dengan design menarik dan responsive di semua device.</p>
+                    <div class="project-tags">
+                        <span class="tag">HTML</span>
+                        <span class="tag">CSS</span>
+                        <span class="tag">Responsive</span>
+                    </div>
+                </div>
+            </div>
+            <div class="glass project-card">
+                <div class="project-img">📝</div>
+                <div class="project-info">
+                    <h3>Todo List App</h3>
+                    <p>Aplikasi todo list dengan fitur tambah, edit, hapus tasks dan local storage.</p>
+                    <div class="project-tags">
+                        <span class="tag">JavaScript</span>
+                        <span class="tag">LocalStorage</span>
+                        <span class="tag">CRUD</span>
+                    </div>
+                </div>
+            </div>
+            <div class="glass project-card">
+                <div class="project-img">☀️</div>
+                <div class="project-info">
+                    <h3>Weather App</h3>
+                    <p>Aplikasi cuaca yang menampilkan data real-time menggunakan API weather.</p>
+                    <div class="project-tags">
+                        <span class="tag">API</span>
+                        <span class="tag">JavaScript</span>
+                        <span class="tag">Fetch</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="section" id="contact">
+        <h2>Hubungi Saya</h2>
+        <div class="contact-grid">
+            <div class="glass contact-item">
+                <div class="contact-icon">📧</div>
+                <h3>Email</h3>
+                <a href="mailto:istiqomah@example.com">istiqomah@example.com</a>
+            </div>
+            <div class="glass contact-item">
+                <div class="contact-icon">💻</div>
+                <h3>GitHub</h3>
+                <a href="https://github.com/istyy0144-star" target="_blank">github.com/istyy0144-star</a>
+            </div>
+            <div class="glass contact-item">
+                <div class="contact-icon">📱</div>
+                <h3>Instagram</h3>
+                <a href="https://instagram.com/username" target="_blank">@username</a>
+            </div>
+            <div class="glass contact-item">
+                <div class="contact-icon">💼</div>
+                <h3>LinkedIn</h3>
+                <a href="https://linkedin.com/in/istiqomah" target="_blank">linkedin.com/in/istiqomah</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="social-links">
+            <a href="https://github.com/istyy0144-star" target="_blank">💻</a>
+            <a href="mailto:istiqomah@example.com">📧</a>
+            <a href="https://instagram.com/username" target="_blank">📷</a>
+            <a href="https://linkedin.com/in/istiqomah" target="_blank">💼</a>
+        </div>
+        <p>© 2025 Istiqomah — Dibuat dengan 💜 dan ☕</p>
+    </footer>
+
+    <!-- Modal untuk upload/input gambar -->
+    <div class="edit-profile-modal" id="imageModal">
+        <div class="modal-content">
+            <h3>📷 Ganti Foto Profil</h3>
+            <p style="text-align: center; color: #bbb; margin-bottom: 20px;">Pilih salah satu metode:</p>
+            
+            <label style="color: #7f5af0; margin-bottom: 10px; display: block;">Upload dari komputer:</label>
+            <input type="file" id="imageFile" accept="image/*" class="image-input" onchange="handleFileUpload(event)">
+            <button class="btn" style="width: 100%; margin-top: 0;" onclick="document.getElementById('imageFile').click()">📁 Pilih File</button>
+            
+            <p style="text-align: center; margin: 20px 0; color: #888;">atau</p>
+            
+            <label style="color: #7f5af0; margin-bottom: 10px; display: block;">Paste URL gambar:</label>
+            <input type="text" id="imageUrl" placeholder="https://example.com/foto.jpg">
+            
+            <div class="modal-buttons">
+                <button class="btn" onclick="saveImageUrl()">✅ Simpan</button>
+                <button class="btn btn-outline" onclick="closeImageModal()">❌ Batal</button>
+            </div>
+            
+            <p style="text-align: center; color: #888; font-size: 0.85rem; margin-top: 20px;">
+                💡 Tips: Upload foto ke <a href="https://postimg.cc" target="_blank" style="color: #7f5af0;">postimg.cc</a> atau 
+                <a href="https://imgur.com" target="_blank" style="color: #7f5af0;">imgur.com</a> lalu copy linknya
+            </p>
+        </div>
+    </div>
+
+    <script>
+        /* Profile Image Management */
+        function openImageModal() {
+            document.getElementById('imageModal').style.display = 'flex';
+        }
+
+        function closeImageModal() {
+            document.getElementById('imageModal').style.display = 'none';
+            document.getElementById('imageUrl').value = '';
+        }
+
+        function handleFileUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    updateProfileImage(e.target.result);
+                    closeImageModal();
+                }
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function saveImageUrl() {
+            const url = document.getElementById('imageUrl').value.trim();
+            if (url) {
+                updateProfileImage(url);
+                closeImageModal();
+            } else {
+                alert('Mohon masukkan URL gambar yang valid!');
+            }
+        }
+
+        function updateProfileImage(imageSrc) {
+            const profileImg = document.getElementById('profileImg');
+            
+            // Hapus placeholder jika ada
+            const placeholder = profileImg.querySelector('.profile-img-placeholder');
+            if (placeholder) {
+                placeholder.remove();
+            }
+            
+            // Hapus gambar lama jika ada
+            const oldImg = profileImg.querySelector('img');
+            if (oldImg) {
+                oldImg.remove();
+            }
+            
+            // Tambah gambar baru
+            const img = document.createElement('img');
+            img.src = imageSrc;
+            img.alt = 'Profile Photo';
+            img.onerror = function() {
+                alert('Gagal memuat gambar. Pastikan URL valid dan dapat diakses.');
+                // Kembalikan placeholder
+                if (!profileImg.querySelector('.profile-img-placeholder')) {
+                    const newPlaceholder = document.createElement('span');
+                    newPlaceholder.className = 'profile-img-placeholder';
+                    newPlaceholder.textContent = '👩‍💻';
+                    profileImg.insertBefore(newPlaceholder, profileImg.querySelector('.upload-btn'));
+                }
+            };
+            
+            profileImg.insertBefore(img, profileImg.querySelector('.upload-btn'));
+        }
+
+        // Load saved image from localStorage on page load
+        window.addEventListener('load', () => {
+            const savedImage = localStorage.getItem('profileImage');
+            if (savedImage) {
+                updateProfileImage(savedImage);
+            }
+        });
+
+        // Save image to localStorage when updated
+        function updateProfileImage(imageSrc) {
+            const profileImg = document.getElementById('profileImg');
+            
+            // Hapus placeholder jika ada
+            const placeholder = profileImg.querySelector('.profile-img-placeholder');
+            if (placeholder) {
+                placeholder.remove();
+            }
+            
+            // Hapus gambar lama jika ada
+            const oldImg = profileImg.querySelector('img');
+            if (oldImg) {
+                oldImg.remove();
+            }
+            
+            // Tambah gambar baru
+            const img = document.createElement('img');
+            img.src = imageSrc;
+            img.alt = 'Profile Photo';
+            img.onerror = function() {
+                alert('Gagal memuat gambar. Pastikan URL valid dan dapat diakses.');
+                localStorage.removeItem('profileImage');
+                // Kembalikan placeholder
+                if (!profileImg.querySelector('.profile-img-placeholder')) {
+                    const newPlaceholder = document.createElement('span');
+                    newPlaceholder.className = 'profile-img-placeholder';
+                    newPlaceholder.textContent = '👩‍💻';
+                    profileImg.insertBefore(newPlaceholder, profileImg.querySelector('.upload-btn'));
+                }
+            };
+            
+            img.onload = function() {
+                // Simpan ke localStorage setelah gambar berhasil dimuat
+                localStorage.setItem('profileImage', imageSrc);
+            };
+            
+            profileImg.insertBefore(img, profileImg.querySelector('.upload-btn'));
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('imageModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeImageModal();
+            }
+        });
+
+        /* Typing Effect */
+        const text = "Mahasiswa Sistem Informasi | Passionate Web Developer | Tech Enthusiast";
+        let index = 0;
+        function typing() {
+            if (index <= text.length) {
+                document.getElementById("typingText").textContent = text.slice(0, index);
+                index++;
+                setTimeout(typing, 80);
+            } else {
+                setTimeout(() => {
+                    index = 0;
+                    typing();
+                }, 3000);
+            }
+        }
+        typing();
+
+        /* Dark / Light Mode */
+        function toggleMode() {
+            document.body.classList.toggle("light");
+            const btn = document.querySelector('.toggle-btn');
+            if (document.body.classList.contains('light')) {
+                btn.textContent = '🌙 Mode';
+            } else {
+                btn.textContent = '🌓 Mode';
+            }
+        }
+
+        /* CV Download */
+        function downloadCV() {
+            // Ganti URL ini dengan link Google Drive CV Anda
+            const cvUrl = "https://drive.google.com/file/d/YOUR_FILE_ID/view?usp=sharing";
+            
+            // Untuk production, gunakan link yang benar
+            // window.open(cvUrl, '_blank');
+            
+            // Untuk demo, tampilkan alert
+            alert("Untuk mengaktifkan download CV:\n\n1. Upload CV Anda ke Google Drive\n2. Set sharing ke 'Anyone with the link'\n3. Copy link dan ganti YOUR_FILE_ID di function downloadCV()\n4. Uncomment baris window.open()");
+        }
+
+        /* Smooth Scroll dengan offset untuk sticky header */
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const headerOffset = 80;
+                    const elementPosition = target.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        /* Animasi progress bar saat scroll */
+        const observerOptions = {
+            threshold: 0.5,
+            rootMargin: '0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const progressBars = entry.target.querySelectorAll('.progress');
+                    progressBars.forEach(bar => {
+                        bar.style.width = bar.style.width;
+                    });
+                }
+            });
+        }, observerOptions);
+
+        const skillsSection = document.querySelector('#skills');
+        if (skillsSection) {
+            observer.observe(skillsSection);
+        }
+
+        /* Animasi fade in untuk elements saat scroll */
+        const fadeElements = document.querySelectorAll('.glass, .timeline-item');
+        
+        const fadeObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+
+        fadeElements.forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            fadeObserver.observe(el);
+        });
+
+        /* Active nav link saat scroll */
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('.section');
+            const navLinks = document.querySelectorAll('nav a');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (window.pageYOffset >= sectionTop - 100) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.style.color = '#eee';
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.style.color = '#7f5af0';
+                }
+            });
+        });
+
+        /* Parallax effect untuk hero */
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero-content');
+            if (hero && scrolled < 600) {
+                hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+                hero.style.opacity = 1 - (scrolled / 600);
+            }
+        });
+
+        /* Cursor effect (optional - untuk efek lebih advanced) */
+        const cursor = document.createElement('div');
+        cursor.style.cssText = `
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #7f5af0;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transition: 0.1s;
+            display: none;
+        `;
+        document.body.appendChild(cursor);
+
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.display = 'block';
+            cursor.style.left = e.clientX - 10 + 'px';
+            cursor.style.top = e.clientY - 10 + 'px';
+        });
+
+        document.addEventListener('mouseleave', () => {
+            cursor.style.display = 'none';
+        });
+
+        /* Klik effect pada buttons dan cards */
+        document.querySelectorAll('.btn, .glass').forEach(el => {
+            el.addEventListener('click', function(e) {
+                const ripple = document.createElement('div');
+                ripple.style.cssText = `
+                    position: absolute;
+                    border-radius: 50%;
+                    background: rgba(127, 90, 240, 0.3);
+                    width: 100px;
+                    height: 100px;
+                    margin-left: -50px;
+                    margin-top: -50px;
+                    animation: ripple 0.6s;
+                    pointer-events: none;
+                `;
+                ripple.style.left = e.clientX - this.offsetLeft + 'px';
+                ripple.style.top = e.clientY - this.offsetTop + 'px';
+                
+                this.style.position = 'relative';
+                this.style.overflow = 'hidden';
+                this.appendChild(ripple);
+                
+                setTimeout(() => ripple.remove(), 600);
+            });
+        });
+
+        /* Stats counter animation */
+        function animateCounter(element, target) {
+            let current = 0;
+            const increment = target / 50;
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    element.textContent = target + (element.textContent.includes('%') ? '%' : '+');
+                    clearInterval(timer);
+                } else {
+                    element.textContent = Math.floor(current) + (element.textContent.includes('%') ? '%' : '+');
+                }
+            }, 30);
+        }
+
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const statNumbers = entry.target.querySelectorAll('.stat-item h4');
+                    statNumbers.forEach(stat => {
+                        const target = parseInt(stat.textContent);
+                        animateCounter(stat, target);
+                    });
+                    statsObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        const statsSection = document.querySelector('.stats');
+        if (statsSection) {
+            statsObserver.observe(statsSection);
+        }
+
+        /* Mobile menu toggle */
+        const createMobileMenu = () => {
+            const header = document.querySelector('header');
+            const nav = document.querySelector('nav');
+            
+            if (window.innerWidth <= 768) {
+                if (!document.querySelector('.menu-toggle')) {
+                    const menuToggle = document.createElement('button');
+                    menuToggle.className = 'menu-toggle';
+                    menuToggle.innerHTML = '☰';
+                    menuToggle.style.cssText = `
+                        display: block;
+                        background: none;
+                        border: none;
+                        color: #7f5af0;
+                        font-size: 1.8rem;
+                        cursor: pointer;
+                    `;
+                    
+                    menuToggle.addEventListener('click', () => {
+                        nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
+                        nav.style.flexDirection = 'column';
+                        nav.style.position = 'absolute';
+                        nav.style.top = '70px';
+                        nav.style.right = '20px';
+                        nav.style.background = 'rgba(20, 20, 20, 0.95)';
+                        nav.style.padding = '20px';
+                        nav.style.borderRadius = '10px';
+                    });
+                    
+                    header.insertBefore(menuToggle, header.querySelector('.toggle-btn'));
+                }
+            }
+        };
+
+        createMobileMenu();
+        window.addEventListener('resize', createMobileMenu);
+
+        /* Loading animation */
+        window.addEventListener('load', () => {
+            document.body.style.opacity = '0';
+            setTimeout(() => {
+                document.body.style.transition = 'opacity 0.5s ease';
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+
+        /* Easter egg - konami code */
+        let konamiCode = [];
+        const konamiSequence = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+        
+        document.addEventListener('keydown', (e) => {
+            konamiCode.push(e.key);
+            konamiCode = konamiCode.slice(-10);
+            
+            if (konamiCode.join(',') === konamiSequence.join(',')) {
+                document.body.style.animation = 'rainbow 2s infinite';
+                setTimeout(() => {
+                    document.body.style.animation = '';
+                }, 5000);
+            }
+        });
+
+        /* Add rainbow animation for easter egg */
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes rainbow {
+                0% { filter: hue-rotate(0deg); }
+                100% { filter: hue-rotate(360deg); }
+            }
+            @keyframes ripple {
+                from {
+                    opacity: 1;
+                    transform: scale(0);
+                }
+                to {
+                    opacity: 0;
+                    transform: scale(2);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        console.log('%c👋 Halo! Terima kasih sudah mengunjungi portfolio saya!', 'color: #7f5af0; font-size: 20px; font-weight: bold;');
+        console.log('%c🎮 Coba ketik kode konami: ↑ ↑ ↓ ↓ ← → ← → B A', 'color: #a78bfa; font-size: 14px;');
+    </script>
+
+</body>
+</html>
